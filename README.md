@@ -1,85 +1,27 @@
 # ProgressBarInterface
 
-# -*- coding: utf-8 -*-
-"""
----------------------------------------------------------------------------------------------------------------
-Title:
+This code is a Python script that creates a graphical user interface (GUI) with a progress bar using the tkinter module.
 
-Remark :
+The first line, # -*- coding: utf-8 -*-, specifies the encoding of the script. It tells the interpreter that the script is written in the Unicode UTF-8 encoding, which is a widely used character encoding that can represent characters from most languages.
 
-Written by: Jean Guiraud
----------------------------------------------------------------------------------------------------------------
-"""
-# !/usr/bin/env python3
-# Python version : 3.8
+The lines between the triple quotes (""") are comments that provide information about the script, such as its title and the name of the person who wrote it.
 
-from tkinter import messagebox, ttk
-from tkinter import *
-import init
+The line # !/usr/bin/env python3 is called a shebang, and it specifies the path to the Python interpreter that should be used to execute the script. The line # Python version : 3.8 specifies the version of Python that the script was written for.
 
+The following lines import various modules that are needed for the script to work. The tkinter module provides functions and classes for creating a GUI, and the messagebox module provides functions for displaying message boxes. The ttk module is a submodule of tkinter that provides themed widgets, and the init module is a custom module that is not part of the Python standard library.
 
-class ProgressBar(Toplevel):
+The ProgressBar class is a subclass of the Toplevel class, which is a class provided by tkinter that represents a top-level window. The __init__ method is the constructor of the class, and it is called when a new instance of the class is created.
 
-    def __init__(self):
+The __init__ method sets the title and icon of the window, as well as its size and position on the screen. It also sets the window to be non-resizable and registers a method to be called when the user tries to close the window.
 
-        super().__init__()
+The __init__ method also creates a progress bar and a label widget and places them in the window using the grid geometry manager provided by tkinter. The progress bar has a fixed length and is horizontally oriented, and the label displays the current progress as a percentage.
 
-        self.title('Progressbar')
-        self.wm_iconbitmap(init.ASSETS_PATH + "/MokoIcon.ico")
+The __on_closing__ method is called when the user tries to close the window, and it displays a message box asking the user to confirm the action. If the user confirms, the window is closed; otherwise, the window stays open.
 
-        # get screen width and height
-        window_x = self.winfo_rootx()
-        window_y = self.winfo_rooty()
+The __update_progress_label__ method updates the text of the label widget to show the current progress as a percentage.
 
-        # set the dimensions of the screen
-        # and where it is placed
-        self.geometry(f'{300}x{120}+{window_x}+{window_y}')
-        self.resizable(0, 0)
-        self.protocol("WM_DELETE_WINDOW", self.__on_closing__)
+The progress method takes any number of integer arguments and updates the progress bar with a percentage value calculated based on the number of arguments. For example, if the method is called with the arguments (10, 5), the progress bar will increase by 50% (10/5 * 100).
 
-        # self.progressbar
-        self.__pb = ttk.Progressbar(
-            self,
-            orient='horizontal',
-            mode='determinate',
-            length=280
-        )
-        # place the self.progressbar
-        self.__pb.grid(column=0, row=0, columnspan=2, padx=10, pady=20)
+The get_value and set_value methods are getter and setter methods that allow the user to get or set the value of the progress bar.
 
-        # label
-        self.__value_label = ttk.Label(self, text=self.__update_progress_label__())
-        self.__value_label.grid(column=0, row=1, columnspan=2)
-
-    def __on_closing__(self):
-        if messagebox.askokcancel("Quit",
-                                  "Do you want to quit? If you stop the progressbar then the generation will stop"):
-            self.destroy()
-        else:
-            self.lift()
-
-    def __update_progress_label__(self):
-        value = round(self.__pb['value'], 2)
-        return f"Current Progress : {value}%"
-
-    def progress(self, *data: int):
-
-        for data in data:
-            if 'percent' not in locals():
-                percent = 100 / data
-            else:
-                percent /= data
-
-        if self.__pb['value'] < 100:
-            self.__pb['value'] += percent
-            self.__value_label['text'] = self.__update_progress_label__()
-
-    def get_value(self) -> int:
-        return self.__pb['value']
-
-    def set_value(self, value: int):
-        self.__pb['value'] = value
-        self.__update_progress_label__()
-
-    def __str__(self) -> str:
-        return f"Current progress: {self.__pb['value']}"
+The __str__ method returns a string representation of the progress bar, which can be used for debugging or for printing the object to the console.
