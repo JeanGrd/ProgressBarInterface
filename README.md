@@ -2,12 +2,6 @@
 
 This code is a Python script that creates a graphical user interface (GUI) with a progress bar using the tkinter module.
 
-The first line, # -*- coding: utf-8 -*-, specifies the encoding of the script. It tells the interpreter that the script is written in the Unicode UTF-8 encoding, which is a widely used character encoding that can represent characters from most languages.
-
-The lines between the triple quotes (""") are comments that provide information about the script, such as its title and the name of the person who wrote it.
-
-The line # !/usr/bin/env python3 is called a shebang, and it specifies the path to the Python interpreter that should be used to execute the script. The line # Python version : 3.8 specifies the version of Python that the script was written for.
-
 The following lines import various modules that are needed for the script to work. The tkinter module provides functions and classes for creating a GUI, and the messagebox module provides functions for displaying message boxes. The ttk module is a submodule of tkinter that provides themed widgets, and the init module is a custom module that is not part of the Python standard library.
 
 The ProgressBar class is a subclass of the Toplevel class, which is a class provided by tkinter that represents a top-level window. The __init__ method is the constructor of the class, and it is called when a new instance of the class is created.
