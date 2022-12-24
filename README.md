@@ -4,7 +4,7 @@ This code is a Python script that creates a graphical user interface (GUI) with 
 
 The following lines import various modules that are needed for the script to work. The tkinter module provides functions and classes for creating a GUI, and the messagebox module provides functions for displaying message boxes. The ttk module is a submodule of tkinter that provides themed widgets, and the init module is a custom module that is not part of the Python standard library.
 
-## Progress bar class
+## Progressbar class
 
 The **ProgressBar class** is a subclass of the Toplevel class, which is a class provided by tkinter that represents a top-level window. The __init__ method is the constructor of the class, and it is called when a new instance of the class is created.
 

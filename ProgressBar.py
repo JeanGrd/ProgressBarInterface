@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 ---------------------------------------------------------------------------------------------------------------
-Title:
+Title: Classic progress bar interface with tkinter
 
-Remark :
+Remark : This is a custom ProgressBar class implemented using the tkinter module in Python. The ProgressBar class is
+a top-level window that displays a horizontal progress bar and a label that shows the current progress. The progress
+bar can be updated using the progress method, which takes one or more integers as arguments and increases the
+progress bar by a percentage of the total progress for each integer. The get_value method returns the current
+progress of the progress bar as an integer, and the set_value method allows you to set the progress of the progress
+bar to a specific value.
 
 Written by: Jean Guiraud
 ---------------------------------------------------------------------------------------------------------------
@@ -13,7 +18,6 @@ Written by: Jean Guiraud
 
 from tkinter import messagebox, ttk
 from tkinter import *
-import init
 
 
 class ProgressBar(Toplevel):
@@ -23,7 +27,6 @@ class ProgressBar(Toplevel):
         super().__init__()
 
         self.title('Progressbar')
-        self.wm_iconbitmap(init.ASSETS_PATH + "/MokoIcon.ico")
 
         # get screen width and height
         window_x = self.winfo_rootx()
@@ -32,7 +35,7 @@ class ProgressBar(Toplevel):
         # set the dimensions of the screen
         # and where it is placed
         self.geometry(f'{300}x{120}+{window_x}+{window_y}')
-        self.resizable(0, 0)
+        self.resizable(False, False)
         self.protocol("WM_DELETE_WINDOW", self.__on_closing__)
 
         # self.progressbar
@@ -60,17 +63,19 @@ class ProgressBar(Toplevel):
         value = round(self.__pb['value'], 2)
         return f"Current Progress : {value}%"
 
-    def progress(self, *data: int):
+    def progress(self, *data: float):
 
-        for data in data:
-            if 'percent' not in locals():
-                percent = 100 / data
-            else:
-                percent /= data
+        percent: float = 0
+        if data and 0 not in data:
+            for data in data:
+                if percent == 0:
+                    percent = 100 / data
+                else:
+                    percent /= data
 
-        if self.__pb['value'] < 100:
-            self.__pb['value'] += percent
-            self.__value_label['text'] = self.__update_progress_label__()
+            if self.__pb['value'] < 100:
+                self.__pb['value'] += percent
+                self.__value_label['text'] = self.__update_progress_label__()
 
     def get_value(self) -> int:
         return self.__pb['value']
